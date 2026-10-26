@@ -1,0 +1,20 @@
+{%- comment -%}
+  Scheda di un argomento nello stile "quaderno" (pagine delle aree).
+  Conta da sola i materiali presenti in tutte le sottosezioni.
+{%- endcomment -%}
+{%- assign a = include.argomento -%}
+{%- assign totale = 0 -%}
+{%- for sezione in site.data.sezioni -%}
+  {%- assign cartella = a.dir | append: sezione.cartella | append: "/" -%}
+  {%- include raccogli-materiali.html cartella=cartella -%}
+  {%- assign totale = totale | plus: n_materiali -%}
+{%- endfor -%}
+<a class="q-scheda" href="{{ a.url | relative_url }}" style="--i: {{ include.indice | default: 0 }}">
+  <span class="q-scheda__simbolo" aria-hidden="true" style="view-transition-name: simbolo-{{ a.dir | slugify }}">{{ a.simbolo | default: "∑" }}</span>
+  <span class="q-scheda__titolo">{{ a.titolo | default: a.title }}</span>
+  {%- if a.descrizione %}<span class="q-scheda__desc">{{ a.descrizione }}</span>{% endif %}
+  <span class="q-scheda__piede">
+    <span>{% if totale == 0 %}In arrivo{% elsif totale == 1 %}1 materiale{% else %}{{ totale }} materiali{% endif %}</span>
+    <span class="q-scheda__freccia">{% include icona.html nome="freccia" %}</span>
+  </span>
+</a>

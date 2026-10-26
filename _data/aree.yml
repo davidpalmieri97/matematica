@@ -1,26 +1,36 @@
 # ─────────────────────────────────────────────────────────────
 #  AREE in cui sono raggruppati gli argomenti nella home.
 #  L'ordine qui sotto è l'ordine in cui compaiono.
-#  "id" è la parola da scrivere nel campo "area:" di ogni argomento.
+#  "id" è la parola da scrivere nel campo "area:" di ogni argomento,
+#  ed è anche il nome della cartella della sua pagina in aree/ (es. aree/algebra/).
+#  "icona": disegno della scheda (operazioni, triangolo, istogramma); se manca
+#  si usa "simbolo", cioè 1-4 caratteri scritti sulla scheda dell'area
 #  Colori disponibili: verde, blu, arancio, viola, rosso, giallo
 # ─────────────────────────────────────────────────────────────
 
 - id: aritmetica
+  icona: operazioni
+  simbolo: "1+2"
   nome: "Aritmetica"
   colore: arancio
   descrizione: "Numeri, operazioni, frazioni e percentuali."
 
 - id: algebra
+  simbolo: "x²"
   nome: "Algebra"
   colore: blu
   descrizione: "Lettere, espressioni ed equazioni."
 
 - id: geometria
+  icona: triangolo
+  simbolo: "90°"
   nome: "Geometria"
   colore: viola
   descrizione: "Figure, misure e spazio."
 
 - id: statistica-e-probabilita
+  icona: istogramma
+  simbolo: "P(A)"
   nome: "Statistica e probabilità"
   colore: verde
   descrizione: "Dati, grafici e probabilità."

@@ -1,0 +1,55 @@
+---
+layout: default
+---
+{%- comment -%}
+  PAGINA DI UN'AREA (es. aree/algebra/index.html): elenca tutti i suoi argomenti.
+  I dati dell'area (nome, colore, descrizione) sono in _data/aree.yml.
+{%- endcomment -%}
+{%- assign area = site.data.aree | where: "id", page.area | first -%}
+{%- assign argomenti = site.pages | where: "layout", "argomento" | where: "area", page.area | sort: "ordine", "last" -%}
+
+<div class="tema-{{ area.colore | default: 'verde' }}">
+  <section class="testa-argomento testa-area">
+    <div class="contenitore">
+      <a class="indietro" href="{{ '/' | relative_url }}">{% include icona.html nome="indietro" %}<span>Home</span></a>
+      <div class="testa-argomento__riga">
+        <span class="scheda__simbolo scheda__simbolo--grande" aria-hidden="true" style="view-transition-name: area-{{ area.id }}">{% if area.icona %}{% include icona.html nome=area.icona %}{% else %}{{ area.simbolo | default: "∑" }}{% endif %}</span>
+        <div class="testa-argomento__testo">
+          <span class="etichetta-colore">{{ argomenti.size }} {% if argomenti.size == 1 %}argomento{% else %}argomenti{% endif %}</span>
+          <h1 class="testa-argomento__titolo">{{ area.nome }}</h1>
+          {%- if area.descrizione %}<p class="testa-argomento__desc">{{ area.descrizione }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contenitore corpo-argomento">
+    {%- if argomenti.size > 0 %}
+    {%- if site.aspetto == "quaderno" %}
+    <div class="q-schede q-schede--area">
+      {%- for a in argomenti %}
+      {% include quaderno/scheda-argomento.html argomento=a indice=forloop.index0 %}
+      {%- endfor %}
+    </div>
+    {%- else %}
+    <div class="griglia-schede griglia-schede--area">
+      {%- for a in argomenti %}
+      {% include scheda-argomento.html argomento=a indice=forloop.index0 %}
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- else %}
+    <p class="vuoto">Ancora nessun argomento di {{ area.nome | downcase }}. Arriveranno presto!</p>
+    {%- endif %}
+
+    {%- comment -%} Passaggio rapido alle altre aree {%- endcomment -%}
+    <section class="altri" aria-labelledby="titolo-altre-aree">
+      <h2 id="titolo-altre-aree" class="altri__titolo">Altre aree</h2>
+      <div class="altri__riga">
+        {%- for altra in site.data.aree %}{% if altra.id != area.id %}
+        <a class="chip tema-{{ altra.colore }}" href="{{ '/aree/' | append: altra.id | append: '/' | relative_url }}"><span class="chip__punto" aria-hidden="true"></span>{{ altra.nome }}</a>
+        {%- endif %}{% endfor %}
+      </div>
+    </section>
+  </div>
+</div>

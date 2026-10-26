@@ -16,17 +16,16 @@
 
     {%- assign aree = site.data.aree %}
 
-    <!-- 1 · Aritmetica: torta del 25% (centro 112,128 · raggio 5 quadretti) -->
+    {%- comment -%} 1 · Aritmetica: torta del 25% (centro 112,128 · raggio 5 quadretti) {%- endcomment -%}
     <g class="schizzo attivo" data-nome="{{ aree[0].nome }}" data-colore="{{ aree[0].colore }}">
       <path class="traccia" pathLength="1" style="--r:0" d="M112 48a80 80 0 1 1-.1 0" stroke="#37352f" stroke-width="2.4" fill="none"/>
       <path class="traccia" pathLength="1" style="--r:1" d="M32 128H192M112 48V208" stroke="#37352f" stroke-width="1.2" fill="none" opacity=".45"/>
       <path class="appare" style="--r:2" d="M112 128V48A80 80 0 0 1 192 128Z" fill="#d9730d"/>
       <text class="appare" style="--r:3" x="148" y="98" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="17" fill="#fff">25%</text>
-      <text class="appare" style="--r:4" x="224" y="122" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="24" fill="#9a5410">¼ = 25%</text>
-      <text class="appare" style="--r:5" x="224" y="154" font-family="Inter, sans-serif" font-size="15" fill="#615d59">80 € → 20 €</text>
+      <text class="appare" style="--r:4" x="224" y="136" font-family="'Source Serif 4', Georgia, serif" font-style="italic" font-size="24" fill="#9a5410">¼ = 25%</text>
     </g>
 
-    <!-- 2 · Algebra: y = x² esatta (origine 112,208 · 1 unità = 1 quadretto) -->
+    {%- comment -%} 2 · Algebra: y = x² esatta (origine 112,208 · 1 unità = 1 quadretto) {%- endcomment -%}
     <g class="schizzo" data-nome="{{ aree[1].nome }}" data-colore="{{ aree[1].colore }}">
       <path class="traccia" pathLength="1" style="--r:0" d="M32 208H224M112 224V32" stroke="#37352f" stroke-width="1.6" stroke-linecap="round" fill="none"/>
       <path class="appare" style="--r:1" d="M218 202l6 6-6 6M106 38l6-6 6 6" stroke="#37352f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -36,22 +35,22 @@
       <g class="appare" style="--r:4" font-family="Inter, sans-serif" font-size="12" fill="#615d59" text-anchor="middle">
         <text x="144" y="224">2</text><text x="100" y="148">4</text>
       </g>
-      <text class="appare" style="--r:4" x="176" y="84" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="24" fill="#0075de">y = x²</text>
-      <text class="appare" style="--r:5" x="224" y="150" font-family="Inter, sans-serif" font-size="15" fill="#615d59">x = 2 → y = 4</text>
+      <text class="appare" style="--r:4" x="176" y="84" font-family="'Source Serif 4', Georgia, serif" font-style="italic" font-size="24" fill="#0075de">y = x²</text>
+      <text class="appare" style="--r:5" x="184" y="150" font-family="'Source Serif 4', Georgia, serif" font-style="italic" font-size="22" fill="#615d59">x = 2 → y = 4</text>
     </g>
 
-    <!-- 3 · Geometria: triangolo rettangolo con lati 9, 12, 15 quadretti -->
+    {%- comment -%} 3 · Geometria: triangolo rettangolo con lati 9, 12, 15 quadretti, angolo retto a sinistra {%- endcomment -%}
     <g class="schizzo" data-nome="{{ aree[2].nome }}" data-colore="{{ aree[2].colore }}">
-      <path class="appare" style="--r:1" d="M64 208H256V64Z" fill="rgba(144,101,176,.12)"/>
-      <path class="traccia" pathLength="1" style="--r:0" d="M64 208H256V64Z" stroke="#9065b0" stroke-width="2.6" stroke-linejoin="round" fill="none"/>
-      <path class="traccia" pathLength="1" style="--r:2" d="M240 208V192H256" stroke="#9065b0" stroke-width="1.6" fill="none"/>
-      <g class="appare" style="--r:3" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="20" fill="#37352f">
-        <text x="268" y="142">a</text><text x="154" y="230">b</text><text x="142" y="128">c</text>
+      <path class="appare" style="--r:1" d="M296 208H104V64Z" fill="rgba(144,101,176,.12)"/>
+      <path class="traccia" pathLength="1" style="--r:0" d="M296 208H104V64Z" stroke="#9065b0" stroke-width="2.6" stroke-linejoin="round" fill="none"/>
+      <path class="traccia" pathLength="1" style="--r:2" d="M120 208V192H104" stroke="#9065b0" stroke-width="1.6" fill="none"/>
+      <g class="appare" style="--r:3" font-family="'Source Serif 4', Georgia, serif" font-style="italic" font-size="22" fill="#37352f">
+        <text x="80" y="142">a</text><text x="196" y="232">b</text><text x="210" y="126">c</text>
       </g>
-      <text class="appare" style="--r:4" x="32" y="72" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="24" fill="#7a4f9c">a² + b² = c²</text>
+      <text class="appare" style="--r:4" x="196" y="72" font-family="'Source Serif 4', Georgia, serif" font-style="italic" font-size="24" fill="#7a4f9c">a² + b² = c²</text>
     </g>
 
-    <!-- 4 · Statistica e probabilità: istogramma, poi una moneta che cade su "testa" -->
+    {%- comment -%} 4 · Statistica e probabilità: istogramma, poi una moneta che cade su "testa" {%- endcomment -%}
     <g class="schizzo" data-nome="{{ aree[3].nome }}" data-colore="{{ aree[3].colore }}" data-durata="6200">
       <path class="traccia" pathLength="1" style="--r:0" d="M32 208H224" stroke="#37352f" stroke-width="1.6" stroke-linecap="round" fill="none"/>
       <rect class="appare cresce" style="--r:1" x="48" y="144" width="32" height="64" fill="#448361" opacity=".55"/>
@@ -62,10 +61,10 @@
       <g class="moneta" style="--r:5">
         <circle cx="288" cy="180" r="28" fill="#f3d27a" stroke="#b7862a" stroke-width="2.4"/>
         <circle cx="288" cy="180" r="21" fill="none" stroke="#b7862a" stroke-width="1.2"/>
-        <text x="288" y="188" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="22" fill="#8a6516">T</text>
+        <text x="288" y="188" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-weight="700" font-size="22" fill="#8a6516">T</text>
       </g>
-      <text class="appare" style="--r:10" x="288" y="234" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#615d59">testa!</text>
-      <text class="appare" style="--r:10" x="256" y="104" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="26" fill="#3b7553">P = ½</text>
+      <text class="appare" style="--r:10" x="288" y="238" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-style="italic" font-size="20" fill="#615d59">testa!</text>
+      <text class="appare" style="--r:10" x="252" y="104" font-family="'Source Serif 4', Georgia, serif" font-style="italic" font-size="24" fill="#8a6516">P = ½</text>
     </g>
   </svg>
   <span class="q-foglio__didascalia tema-{{ aree[0].colore }}" data-didascalia><span class="q-punto"></span><span data-didascalia-testo>{{ aree[0].nome }}</span></span>

@@ -239,6 +239,14 @@ descrizione: "Triangoli rettangoli e misure."
 
 > **Dal browser (Modo B)** non si possono copiare cartelle. Usa **Add file → Create new file** e come nome scrivi `argomenti/teorema-di-pitagora/index.md`: le barre `/` creano le cartelle. Incolla il contenuto di un altro `index.md` e modificalo. Per creare le sottocartelle, crea allo stesso modo un file vuoto chiamato `.gitkeep` in ciascuna, per esempio `argomenti/teorema-di-pitagora/dispense/.gitkeep` (poi `esercitazioni`, `problem-solving`, `giochi`).
 
+### Le aree e le loro pagine
+
+In home ci sono le quattro **aree** (Aritmetica, Algebra, Geometria, Statistica e probabilità): toccandone una si apre la sua pagina con **tutti** i suoi argomenti. Un nuovo argomento compare da solo nella pagina della sua area, in base alla riga `area:` del suo `index.md`.
+
+**Aggiungere una nuova area** (raro):
+1. apri `_data/aree.yml` e copia un blocco, cambiando `id` (minuscolo, con trattini, senza accenti), `simbolo`, `nome`, `colore` e `descrizione`;
+2. copia la cartella `aree/algebra` e rinominala con lo stesso `id` (es. `aree/logica`); nel suo `index.html` cambia le righe `area:` e `title:`.
+
 ### Link utili di un argomento
 
 Nel file `index.md` dell'argomento, cerca la riga `link: []` e sostituiscila così:

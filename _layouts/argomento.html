@@ -13,11 +13,15 @@ layout: default
 <div class="tema-{{ colore }}">
   <section class="testa-argomento">
     <div class="contenitore">
-      <a class="indietro" href="{{ '/' | relative_url }}{% if area %}#area-{{ area.id }}{% endif %}">{% include icona.html nome="indietro" %}<span>Argomenti</span></a>
+      {%- if area %}
+      <a class="indietro" href="{{ '/aree/' | append: area.id | append: '/' | relative_url }}">{% include icona.html nome="indietro" %}<span>{{ area.nome }}</span></a>
+      {%- else %}
+      <a class="indietro" href="{{ '/' | relative_url }}">{% include icona.html nome="indietro" %}<span>Home</span></a>
+      {%- endif %}
       <div class="testa-argomento__riga">
         <span class="scheda__simbolo scheda__simbolo--grande" aria-hidden="true" style="view-transition-name: simbolo-{{ page.dir | slugify }}">{{ page.simbolo | default: "∑" }}</span>
         <div class="testa-argomento__testo">
-          {%- if area %}<span class="etichetta-colore">{{ area.nome }}</span>{% endif %}
+          {%- if area %}<a class="etichetta-colore" href="{{ '/aree/' | append: area.id | append: '/' | relative_url }}">{{ area.nome }}</a>{% endif %}
           <h1 class="testa-argomento__titolo">{{ page.titolo | default: page.title }}</h1>
           {%- if page.descrizione %}<p class="testa-argomento__desc">{{ page.descrizione }}</p>{% endif %}
         </div>

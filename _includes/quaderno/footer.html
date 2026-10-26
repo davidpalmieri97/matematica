@@ -21,7 +21,7 @@
     <nav class="q-piede__colonna" aria-label="Aree">
       <p class="q-piede__titolo">Aree</p>
       {%- for area in site.data.aree %}
-      <a href="{{ '/' | relative_url }}#area-{{ area.id }}">{{ area.nome }}</a>
+      <a href="{{ '/aree/' | append: area.id | append: '/' | relative_url }}">{{ area.nome }}</a>
       {%- endfor %}
     </nav>
   </div>

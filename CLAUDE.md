@@ -30,6 +30,7 @@ _modelli/            ← modelli da copiare (esercitazione, articolo); non vengo
 
 - **Niente anni**: gli argomenti sono raggruppati per **area** (`_data/aree.yml`: aritmetica, algebra, geometria, statistica-e-probabilita). La home li filtra con le chip. Il colore della scheda viene dall'area.
 - La home trova gli argomenti da sola: sono le pagine con `layout: argomento`.
+- **Pagine delle aree**: `aree/<id>/index.html` (solo front matter, `layout: area`). Nello stile quaderno la home mostra **solo le 4 aree** come porte d'ingresso; l'elenco completo degli argomenti sta nella pagina dell'area. Il link "indietro" di un argomento porta alla sua area.
 - Le **categorie del blog** sono in `_data/blog.yml` (nome e colore). Una cartella che non è nell'elenco funziona lo stesso, con il colore blu.
 - I filtri a chip (aree, categorie) sono un solo componente JS generico: `data-filtri="prefisso"`, `data-valore`, `data-gruppo`, `data-filtrabile`.
 - I nomi dei file decidono l'ordine (`01-...`). Il titolo mostrato si ricava dal nome del file (`_includes/titolo-da-file.html`) o dal primo `# titolo`.

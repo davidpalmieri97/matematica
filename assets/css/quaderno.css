@@ -322,64 +322,84 @@ img, svg { display: block; max-width: 100%; }
 .q-sezione__titolo { font-size: clamp(1.75rem, 6vw, 2.75rem); letter-spacing: -0.03em; line-height: 1.1; }
 .q-sezione__sotto { color: var(--grafite); font-family: var(--font-serif); font-size: 1.0625rem; }
 
-/* Indice delle aree */
-.q-indice {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  margin: 0 calc(var(--margine) * -1) 20px;
-  padding: 0 var(--margine) 2px;
-}
-.q-indice::-webkit-scrollbar { display: none; }
-.q-indice__voce {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 8px 0 14px;
-  border: 1px solid var(--linea);
-  border-radius: 9999px;
-  background: #fff;
-  color: var(--testo);
-  font-size: .9375rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: border-color var(--veloce) ease, background var(--veloce) ease;
-}
-.q-indice__conta {
-  min-width: 24px;
-  padding: 1px 7px;
-  border-radius: 9999px;
-  background: var(--c-tinta);
-  color: var(--c-testo);
-  font-size: .75rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-/* Aree: intestazione sobria + schede bianche degli argomenti */
-.q-aree { display: grid; }
-.q-area {
+/* Porte d'ingresso delle aree (home) */
+.q-porte { display: grid; gap: 12px; }
+.q-porta {
   display: grid;
-  gap: 16px;
-  padding-block: 28px;
-  border-top: 1px solid var(--linea);
+  align-content: start;
+  gap: 8px;
+  padding: 20px;
+  border-radius: var(--r-scheda);
+  background: var(--c-tinta);
+  color: var(--testo);
+  text-decoration: none;
+  transition: transform var(--veloce) var(--morbido), box-shadow var(--veloce) ease;
+  animation: compare 420ms var(--morbido) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
 }
-.q-area:first-child { border-top: 0; padding-top: 8px; }
-.q-area__testa { display: grid; gap: 4px; align-content: start; }
-.q-area__titolo {
-  display: flex;
+.q-porta:active { transform: scale(.985); }
+/* Telefono: simbolo, nome e freccia sulla stessa riga */
+.q-porta {
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "simbolo nome freccia"
+    "desc desc desc"
+    "elenco elenco elenco"
+    "piede piede piede";
   align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  column-gap: 14px;
 }
-.q-area__segno { width: 12px; height: 12px; border-radius: 3px; background: var(--c); flex: none; }
-.q-area__desc { color: var(--grafite); font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.5; }
+.q-porta__testa { display: contents; }
+.q-porta__simbolo { grid-area: simbolo; }
+.q-porta__simbolo .icona { width: 30px; height: 30px; stroke-width: 2; }
+.scheda__simbolo--grande .icona { width: 40px; height: 40px; stroke-width: 1.8; }
+.q-porta__freccia { grid-area: freccia; }
+.q-porta__nome { grid-area: nome; }
+.q-porta__desc { grid-area: desc; }
+.q-porta__elenco { grid-area: elenco; }
+.q-porta__piede { grid-area: piede; }
+.q-porta__simbolo {
+  display: grid;
+  place-items: center;
+  min-width: 56px; height: 56px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--c-testo);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  transition: background var(--veloce) ease, color var(--veloce) ease, transform 320ms var(--morbido);
+  animation: entra-simbolo 520ms var(--morbido) backwards;
+  animation-delay: calc(200ms + var(--i, 0) * 90ms);
+}
+.q-porta__freccia {
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .7);
+  color: var(--c-testo);
+  transition: transform var(--veloce) var(--morbido), background var(--veloce) ease;
+}
+.q-porta__freccia .icona { width: 20px; height: 20px; }
+.q-porta__nome { color: var(--inchiostro); font-size: 1.375rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+.q-porta__desc { color: var(--grafite); font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.5; }
+.q-porta__elenco { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.q-porta__voce {
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, .75);
+  color: var(--testo);
+  font-size: .8125rem;
+  font-weight: 500;
+}
+.q-porta__voce--altri { background: var(--c-testo); color: #fff; }
+.q-porta__voce--vuota { background: transparent; border: 1px dashed var(--c); color: var(--c-testo); }
+.q-porta__piede { margin-top: 8px; padding-top: 12px; border-top: 1px solid rgba(0, 0, 0, .08); color: var(--c-testo); font-size: .875rem; font-weight: 600; }
 
 .q-schede { display: grid; gap: 12px; }
+.q-schede--area { padding-top: 12px; }
 .q-scheda {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -590,6 +610,7 @@ img, svg { display: block; max-width: 100%; }
 
 .etichetta-colore {
   display: inline-flex;
+  text-decoration: none;
   align-items: center;
   padding: 2px 10px;
   border-radius: 9999px;
@@ -1149,6 +1170,7 @@ img, svg { display: block; max-width: 100%; }
   .testa-argomento::before { height: 176px; }
   .testa-argomento__riga { margin-top: 72px; }
   .scheda__simbolo--grande { width: 104px; height: 104px; font-size: 2.5rem; border-radius: 20px; }
+  .scheda__simbolo--grande .icona { width: 50px; height: 50px; }
   .tessere { grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
   .griglia-post { grid-template-columns: repeat(3, 1fr); }
   .lim-griglia { grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -1211,7 +1233,9 @@ img, svg { display: block; max-width: 100%; }
   .q-marchio:hover .q-marchio__segno span:nth-child(2) { transform: translateY(14px); }
   .q-marchio:hover .q-marchio__segno span:nth-child(4) { transform: translateX(-14px); border-radius: 50%; }
   .q-marchio:hover .q-marchio__segno span:nth-child(3) { transform: translateY(-14px); }
-  .q-indice__voce:hover { border-color: var(--c); background: var(--c-tinta); }
+  .q-porta:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0, 0, 0, .06); }
+  .q-porta:hover .q-porta__simbolo { background: var(--c); color: #fff; transform: rotate(-8deg) scale(1.06); }
+  .q-porta:hover .q-porta__freccia { transform: translateX(4px); background: #fff; }
   .q-scheda:hover { border-color: var(--linea-forte); transform: translateY(-2px); }
   .q-scheda:hover .q-scheda__simbolo { background: var(--c); color: #fff; transform: rotate(-8deg) scale(1.06); }
   .q-scheda:hover .q-scheda__freccia { transform: translateX(3px); color: var(--c-testo); }
@@ -1239,6 +1263,13 @@ img, svg { display: block; max-width: 100%; }
   :root { --margine: 24px; }
   .q-griglia-post { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .q-schede { grid-template-columns: repeat(2, 1fr); }
+  .q-porte { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  /* Tablet e PC: simbolo e freccia in alto, nome sotto */
+  .q-porta {
+    grid-template-columns: 1fr;
+    grid-template-areas: "testa" "nome" "desc" "elenco" "piede";
+  }
+  .q-porta__testa { grid-area: testa; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
   .q-sezione__testa--riga { grid-template-columns: 1fr auto; align-items: end; }
   .q-scuro { grid-template-columns: 1.2fr 1fr; padding: 36px; }
   .q-piede__dentro { grid-template-columns: 2fr 1fr 1fr; }
@@ -1282,9 +1313,10 @@ img, svg { display: block; max-width: 100%; }
   .q-eroe { grid-template-columns: 1.1fr 1fr; align-items: center; gap: 48px; padding-top: 72px; }
   .q-eroe__sotto { font-size: 1.25rem; }
   .q-sezione { padding-top: 88px; }
-  .q-indice { margin-inline: 0; padding-inline: 0; flex-wrap: wrap; }
-  .q-area { grid-template-columns: 1fr 2.4fr; gap: 32px; padding-block: 36px; }
-  .q-area__testa { position: sticky; top: calc(var(--alt-testata) + 24px); }
+  .q-porte { gap: 20px; }
+  .q-porta { padding: 28px; }
+  .q-porta__nome { font-size: 1.875rem; }
+  .q-schede--area { grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .q-griglia-post { grid-template-columns: repeat(3, 1fr); }
   .q-scuro { padding: 48px; gap: 40px; }
 }
