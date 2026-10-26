@@ -1,0 +1,29 @@
+{%- comment -%}
+  Scheda colorata di un argomento nella home.
+  Il colore viene dall'area (vedi _data/aree.yml), salvo "colore:" nella scheda.
+  Conta da sola i materiali presenti in tutte le sottosezioni.
+{%- endcomment -%}
+{%- assign a = include.argomento -%}
+{%- assign area_a = site.data.aree | where: "id", a.area | first -%}
+{%- assign colore_a = a.colore | default: area_a.colore | default: "verde" -%}
+{%- assign totale = 0 -%}
+{%- for sezione in site.data.sezioni -%}
+  {%- assign cartella = a.dir | append: sezione.cartella | append: "/" -%}
+  {%- include raccogli-materiali.html cartella=cartella -%}
+  {%- assign totale = totale | plus: n_materiali -%}
+{%- endfor -%}
+<a class="scheda tema-{{ colore_a }}" href="{{ a.url | relative_url }}" style="--i: {{ include.indice | default: 0 }}">
+  <span class="scheda__simbolo" aria-hidden="true" style="view-transition-name: simbolo-{{ a.dir | slugify }}">{{ a.simbolo | default: "∑" }}</span>
+  <span class="scheda__corpo">
+    <span class="scheda__titolo">{{ a.titolo | default: a.title }}</span>
+    {%- if a.descrizione %}<span class="scheda__desc">{{ a.descrizione }}</span>{% endif %}
+    <span class="scheda__meta">
+      {%- if totale == 0 -%}
+        <span class="etichetta etichetta--attesa">In arrivo</span>
+      {%- else -%}
+        <span class="etichetta">{% include icona.html nome="dispensa" %}{{ totale }} {% if totale == 1 %}materiale{% else %}materiali{% endif %}</span>
+      {%- endif -%}
+    </span>
+  </span>
+  <span class="scheda__freccia">{% include icona.html nome="freccia" %}</span>
+</a>

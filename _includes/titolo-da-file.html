@@ -1,0 +1,15 @@
+{%- comment -%}
+  Trasforma un nome di file in un titolo leggibile:
+  "01-sconti-e-aumenti" → "Sconti e aumenti"
+  Il risultato è nella variabile titolo_file.
+{%- endcomment -%}
+{%- assign _n = include.nome | replace: "_", "-" -%}
+{%- assign _primo = _n | split: "-" | first -%}
+{%- assign _solo_cifre = _primo | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" -%}
+{%- if _solo_cifre == "" and _n contains "-" -%}
+  {%- assign _n = _n | remove_first: _primo | remove_first: "-" -%}
+{%- endif -%}
+{%- assign _n = _n | replace: "-", " " | strip -%}
+{%- assign _iniziale = _n | slice: 0 | upcase -%}
+{%- assign _resto = _n | slice: 1, 500 -%}
+{%- assign titolo_file = _iniziale | append: _resto -%}

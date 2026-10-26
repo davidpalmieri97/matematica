@@ -1,0 +1,36 @@
+# ─────────────────────────────────────────────────────────────
+#  STRUMENTI RAPIDI della sezione "In classe" (LIM).
+#  Per aggiungerne uno copia un blocco di 5 righe e cambia il testo.
+#  Colori disponibili: verde, blu, arancio, viola, rosso, giallo
+#  "simbolo": 1-3 caratteri disegnati sul riquadro
+# ─────────────────────────────────────────────────────────────
+
+- nome: "GeoGebra Grafici"
+  descrizione: "Funzioni, rette e parabole"
+  url: "https://www.geogebra.org/graphing"
+  colore: blu
+  simbolo: "y="
+
+- nome: "GeoGebra Geometria"
+  descrizione: "Figure, angoli e costruzioni"
+  url: "https://www.geogebra.org/geometry"
+  colore: viola
+  simbolo: "90°"
+
+- nome: "GeoGebra 3D"
+  descrizione: "Solidi e spazio"
+  url: "https://www.geogebra.org/3d"
+  colore: verde
+  simbolo: "3D"
+
+- nome: "Kahoot · Gioca"
+  descrizione: "Gli studenti entrano con il PIN"
+  url: "https://kahoot.it"
+  colore: arancio
+  simbolo: "PIN"
+
+- nome: "Kahoot · I miei quiz"
+  descrizione: "Avvia o crea un quiz"
+  url: "https://create.kahoot.it"
+  colore: rosso
+  simbolo: "?"

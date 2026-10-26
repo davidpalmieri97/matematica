@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────
+#  AREE in cui sono raggruppati gli argomenti nella home.
+#  L'ordine qui sotto è l'ordine in cui compaiono.
+#  "id" è la parola da scrivere nel campo "area:" di ogni argomento.
+#  Colori disponibili: verde, blu, arancio, viola, rosso, giallo
+# ─────────────────────────────────────────────────────────────
+
+- id: aritmetica
+  nome: "Aritmetica"
+  colore: arancio
+  descrizione: "Numeri, operazioni, frazioni e percentuali."
+
+- id: algebra
+  nome: "Algebra"
+  colore: blu
+  descrizione: "Lettere, espressioni ed equazioni."
+
+- id: geometria
+  nome: "Geometria"
+  colore: viola
+  descrizione: "Figure, misure e spazio."
+
+- id: dati-e-probabilita
+  nome: "Dati e probabilità"
+  colore: verde
+  descrizione: "Statistica, grafici e previsioni."

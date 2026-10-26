@@ -1,0 +1,29 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{%- assign titolo_pagina = page.titolo | default: page.title -%}
+{%- if page.titolo == nil and content contains "<h1" -%}
+  {%- comment -%} Il titolo vero è la prima riga "# ..." della pagina {%- endcomment -%}
+  {%- assign titolo_pagina = content | split: "</h1>" | first | split: "<h1" | last | prepend: "<h1" | strip_html | strip -%}
+{%- endif %}
+<title>{% if titolo_pagina and page.url != "/" %}{{ titolo_pagina }} · {% endif %}{{ site.title }}</title>
+<meta name="description" content="{{ page.descrizione | default: site.description }}">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<script>
+  // Prima che la pagina appaia: segna che JS è attivo e applica "Testo grande" se scelto in "In classe"
+  document.documentElement.classList.add("js");
+  try { if (localStorage.getItem("testo-grande") === "1") document.documentElement.classList.add("testo-grande"); } catch (e) {}
+</script>
+<link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+
+{%- comment -%} Font ospitati nel sito: nessuna richiesta a servizi esterni {%- endcomment -%}
+<link rel="preload" href="{{ '/assets/fonts/nunito.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/assets/fonts/nunito-sans.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ '/assets/css/stile.css' | relative_url }}">
+
+{%- if page.formule or content contains '\(' or content contains '\[' %}
+{%- comment -%} KaTeX viene caricato solo nelle pagine che contengono formule {%- endcomment -%}
+<link rel="stylesheet" href="{{ '/assets/katex/katex.min.css' | relative_url }}">
+<script src="{{ '/assets/katex/katex.min.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/katex/auto-render.min.js' | relative_url }}" defer></script>
+{%- endif %}

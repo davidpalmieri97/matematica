@@ -1,0 +1,98 @@
+---
+layout: default
+---
+{%- comment -%}
+  PAGINA ARGOMENTO
+  Le sottosezioni (Dispense, Esercitazioni...) sono elencate in _data/sezioni.yml.
+  In ogni cartella i materiali (PDF, pagine .md, giochi .html) compaiono da soli.
+{%- endcomment -%}
+{%- assign area = site.data.aree | where: "id", page.area | first -%}
+{%- assign colore = page.colore | default: area.colore | default: "verde" -%}
+{%- assign intro = content | strip_html | strip -%}
+
+<div class="tema-{{ colore }}">
+  <section class="testa-argomento">
+    <div class="contenitore">
+      <a class="indietro" href="{{ '/' | relative_url }}{% if area %}#area-{{ area.id }}{% endif %}">{% include icona.html nome="indietro" %}<span>Argomenti</span></a>
+      <div class="testa-argomento__riga">
+        <span class="scheda__simbolo scheda__simbolo--grande" aria-hidden="true" style="view-transition-name: simbolo-{{ page.dir | slugify }}">{{ page.simbolo | default: "∑" }}</span>
+        <div class="testa-argomento__testo">
+          {%- if area %}<span class="etichetta-colore">{{ area.nome }}</span>{% endif %}
+          <h1 class="testa-argomento__titolo">{{ page.titolo | default: page.title }}</h1>
+          {%- if page.descrizione %}<p class="testa-argomento__desc">{{ page.descrizione }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contenitore corpo-argomento">
+    {%- if intro != "" %}
+    <div class="prosa intro">{{ content }}</div>
+    {%- endif %}
+
+    {%- comment -%} Tessere grandi per saltare alle sottosezioni {%- endcomment -%}
+    <nav class="tessere" aria-label="Sottosezioni">
+      {%- for sezione in site.data.sezioni %}
+      {%- assign cartella = page.dir | append: sezione.cartella | append: "/" %}
+      {%- include raccogli-materiali.html cartella=cartella %}
+      <a class="tessera tema-{{ sezione.colore }}" href="#{{ sezione.cartella }}" style="--i: {{ forloop.index0 }}">
+        <span class="tessera__icona">{% include icona.html nome=sezione.icona %}</span>
+        <span class="tessera__nome">{{ sezione.nome }}</span>
+        <span class="tessera__conta">{% if n_materiali == 0 %}in arrivo{% else %}{{ n_materiali }}{% endif %}</span>
+      </a>
+      {%- endfor %}
+    </nav>
+
+    {%- for sezione in site.data.sezioni %}
+    {%- assign cartella = page.dir | append: sezione.cartella | append: "/" %}
+    {%- include raccogli-materiali.html cartella=cartella %}
+    <section id="{{ sezione.cartella }}" class="blocco tema-{{ sezione.colore }}">
+      <h2 class="blocco__titolo">
+        <span class="blocco__icona">{% include icona.html nome=sezione.icona %}</span>{{ sezione.nome }}
+        {%- if n_materiali > 0 %}<span class="blocco__conta">{{ n_materiali }}</span>{% endif %}
+      </h2>
+      {%- if n_materiali > 0 %}
+      <ul class="elenco" role="list">
+        {%- for voce in materiali %}
+        {%- assign campi = voce | split: "§" %}
+        {%- assign m_url = campi[1] %}{% assign m_titolo = campi[2] %}{% assign m_tipo = campi[3] %}
+        <li>{% include riga-materiale.html url=m_url titolo=m_titolo tipo=m_tipo icona=sezione.icona %}</li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
+      <p class="vuoto vuoto--piccolo">Ancora niente qui: arriverà presto.</p>
+      {%- endif %}
+    </section>
+    {%- endfor %}
+
+    {%- if page.link and page.link.size > 0 %}
+    <section id="link" class="blocco tema-blu">
+      <h2 class="blocco__titolo"><span class="blocco__icona">{% include icona.html nome="link" %}</span>Link utili</h2>
+      <ul class="elenco" role="list">
+        {%- for l in page.link %}
+        <li>
+          <a class="riga" href="{{ l.url }}" target="_blank" rel="noopener">
+            <span class="riga__icona">{% include icona.html nome="esterno" %}</span>
+            <span class="riga__testo"><span class="riga__titolo">{{ l.nome }}</span><span class="riga__sotto">Sito esterno · si apre in una nuova scheda</span></span>
+            <span class="riga__freccia">{% include icona.html nome="freccia" %}</span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+
+    {%- comment -%} Navigazione fra gli altri argomenti della stessa area {%- endcomment -%}
+    {%- assign altri = site.pages | where: "layout", "argomento" | where: "area", page.area | sort: "ordine", "last" %}
+    {%- if altri.size > 1 %}
+    <section class="altri" aria-labelledby="titolo-altri">
+      <h2 id="titolo-altri" class="altri__titolo">Altri argomenti di {{ area.nome | default: "quest'area" }}</h2>
+      <div class="altri__riga">
+        {%- for a in altri %}{% if a.url != page.url %}
+        <a class="chip" href="{{ a.url | relative_url }}">{{ a.titolo | default: a.title }}</a>
+        {%- endif %}{% endfor %}
+      </div>
+    </section>
+    {%- endif %}
+  </div>
+</div>

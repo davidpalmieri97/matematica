@@ -1,0 +1,11 @@
+{%- comment -%} Scheda di un articolo del blog (home e pagina Blog) {%- endcomment -%}
+{%- include info-post.html post=include.post -%}
+<a class="post-scheda tema-{{ colore_categoria }}" href="{{ include.post.url | relative_url }}" data-gruppo="{{ categoria_post }}" style="--i: {{ include.indice | default: 0 }}">
+  <span class="post-scheda__testa">
+    <span class="etichetta-colore">{{ nome_categoria }}</span>
+    <span class="post-scheda__data">{{ data_post }}</span>
+  </span>
+  <span class="post-scheda__titolo">{{ titolo_post }}</span>
+  {%- if estratto_post != "" %}<span class="post-scheda__estratto">{{ estratto_post }}</span>{% endif %}
+  <span class="post-scheda__piede">{% include icona.html nome="orologio" %}{{ minuti_lettura }} min di lettura</span>
+</a>

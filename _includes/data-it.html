@@ -1,0 +1,4 @@
+{%- comment -%} Data in italiano: "26 ottobre 2026". Risultato nella variabile data_it. {%- endcomment -%}
+{%- assign _mesi = "gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre" | split: "," -%}
+{%- assign _m = include.data | date: "%-m" | minus: 1 -%}
+{%- capture data_it -%}{{ include.data | date: "%-d" }} {{ _mesi[_m] }} {{ include.data | date: "%Y" }}{%- endcapture -%}

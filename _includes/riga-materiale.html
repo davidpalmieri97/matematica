@@ -1,0 +1,18 @@
+{%- comment -%} Una riga dell'elenco materiali: PDF, pagina o gioco {%- endcomment -%}
+{%- case include.tipo -%}
+  {%- when "pdf" -%}{%- assign _sotto = "PDF · si apre in una nuova scheda" -%}
+  {%- when "gioco" -%}{%- assign _sotto = "Gioco interattivo" -%}
+  {%- else -%}{%- assign _sotto = "Pagina" -%}
+{%- endcase -%}
+<a class="riga" href="{{ include.url | relative_url }}"{% if include.tipo == "pdf" %} target="_blank" rel="noopener"{% endif %}>
+  {%- if include.tipo == "pdf" %}
+  <span class="riga__icona riga__icona--pdf" aria-hidden="true">PDF</span>
+  {%- else %}
+  <span class="riga__icona">{% include icona.html nome=include.icona %}</span>
+  {%- endif %}
+  <span class="riga__testo">
+    <span class="riga__titolo">{{ include.titolo }}</span>
+    <span class="riga__sotto">{{ _sotto }}</span>
+  </span>
+  <span class="riga__freccia">{% include icona.html nome="freccia" %}</span>
+</a>

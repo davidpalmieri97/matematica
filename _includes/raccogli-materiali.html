@@ -1,0 +1,34 @@
+{%- comment -%}
+  Raccoglie i materiali di UNA cartella (es. "/argomenti/percentuali/dispense/").
+  Materiali = file PDF, giochi .html e pagine .md.
+  Dopo l'include sono disponibili:
+    materiali    → elenco ordinato per nome di file; ogni voce è "nome§indirizzo§titolo§tipo"
+    n_materiali  → quanti sono
+  Uso: {% include raccogli-materiali.html cartella="/argomenti/x/dispense/" %}
+{%- endcomment -%}
+{%- assign _voci = "" -%}
+
+{%- assign _file = site.static_files | where_exp: "f", "f.path contains include.cartella" -%}
+{%- for f in _file -%}
+  {%- assign _cartella_f = f.path | remove: f.name -%}
+  {%- if _cartella_f == include.cartella -%}
+    {%- assign _est = f.extname | downcase -%}
+    {%- if _est == ".pdf" or _est == ".html" -%}
+      {%- include titolo-da-file.html nome=f.basename -%}
+      {%- if _est == ".pdf" %}{% assign _tipo = "pdf" %}{% else %}{% assign _tipo = "gioco" %}{% endif -%}
+      {%- capture _voce -%}{{ f.name | downcase }}§{{ f.path }}§{{ titolo_file }}§{{ _tipo }}{%- endcapture -%}
+      {%- assign _voci = _voci | append: _voce | append: "¶" -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign _pagine = site.pages | where: "dir", include.cartella -%}
+{%- for p in _pagine -%}
+  {%- assign _base = p.name | split: "." | first -%}
+  {%- include titolo-da-file.html nome=_base -%}
+  {%- capture _voce -%}{{ p.name | downcase }}§{{ p.url }}§{{ p.title | default: titolo_file }}§pagina{%- endcapture -%}
+  {%- assign _voci = _voci | append: _voce | append: "¶" -%}
+{%- endfor -%}
+
+{%- assign materiali = _voci | split: "¶" | sort -%}
+{%- assign n_materiali = materiali.size -%}

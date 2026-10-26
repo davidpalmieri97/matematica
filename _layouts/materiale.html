@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{%- comment -%}
+  PAGINA DI MATERIALE (esercitazione, problem solving, gioco... scritti in Markdown).
+  Il titolo è la prima riga "# ..." del file.
+{%- endcomment -%}
+{%- assign _parti_dir = page.dir | split: "/" -%}
+{%- assign cartella_sezione = _parti_dir | last -%}
+{%- assign dir_argomento = "/" | append: _parti_dir[1] | append: "/" | append: _parti_dir[2] | append: "/" -%}
+{%- assign argomento = site.pages | where: "dir", dir_argomento | where: "layout", "argomento" | first -%}
+{%- assign sezione = site.data.sezioni | where: "cartella", cartella_sezione | first -%}
+{%- assign area = site.data.aree | where: "id", argomento.area | first -%}
+{%- assign colore = argomento.colore | default: area.colore | default: "verde" -%}
+
+{%- comment -%} Pagina precedente e successiva nella stessa sottosezione {%- endcomment -%}
+{%- include raccogli-materiali.html cartella=page.dir -%}
+{%- assign precedente = nil -%}
+{%- assign successiva = nil -%}
+{%- for voce in materiali -%}
+  {%- assign campi = voce | split: "§" -%}
+  {%- if campi[1] == page.url -%}
+    {%- assign i_prec = forloop.index0 | minus: 1 -%}
+    {%- assign i_succ = forloop.index0 | plus: 1 -%}
+    {%- if forloop.first == false %}{% assign precedente = materiali[i_prec] | split: "§" %}{% endif -%}
+    {%- if forloop.last == false %}{% assign successiva = materiali[i_succ] | split: "§" %}{% endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<div class="tema-{{ colore }}">
+  <div class="contenitore pagina-materiale">
+    <nav class="briciole" aria-label="Sei qui">
+      <a class="indietro" href="{{ argomento.url | relative_url }}#{{ cartella_sezione }}">{% include icona.html nome="indietro" %}<span>{{ argomento.titolo | default: "Argomento" }}</span></a>
+      {%- if sezione %}<span class="etichetta-colore tema-{{ sezione.colore }}">{{ sezione.nome }}</span>{% endif %}
+    </nav>
+
+    <article class="prosa prosa--materiale">
+      {%- unless content contains "<h1" %}<h1>{{ page.title }}</h1>{% endunless %}
+      {{ content }}
+    </article>
+
+    <nav class="prec-succ" aria-label="Altre pagine">
+      {%- if precedente %}
+      <a class="prec-succ__voce" href="{{ precedente[1] | relative_url }}"{% if precedente[3] == "pdf" %} target="_blank" rel="noopener"{% endif %}>
+        <span class="prec-succ__dir">{% include icona.html nome="indietro" %}Precedente</span>
+        <span class="prec-succ__titolo">{{ precedente[2] }}</span>
+      </a>
+      {%- endif %}
+      {%- if successiva %}
+      <a class="prec-succ__voce prec-succ__voce--dopo" href="{{ successiva[1] | relative_url }}"{% if successiva[3] == "pdf" %} target="_blank" rel="noopener"{% endif %}>
+        <span class="prec-succ__dir">Successiva{% include icona.html nome="freccia" %}</span>
+        <span class="prec-succ__titolo">{{ successiva[2] }}</span>
+      </a>
+      {%- endif %}
+    </nav>
+
+    <a class="bottone bottone--verde" href="{{ argomento.url | relative_url }}#{{ cartella_sezione }}">Torna a {{ argomento.titolo | default: "argomento" }}</a>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<header class="testata">
+  <div class="testata__dentro contenitore">
+    <a class="marchio" href="{{ '/' | relative_url }}">
+      <span class="marchio__logo" aria-hidden="true">π</span>
+      <span class="marchio__testo">
+        <span class="marchio__nome">{{ site.title }}</span>
+        <span class="marchio__sotto">{{ site.sottotitolo }}</span>
+      </span>
+    </a>
+
+    {%- comment -%} Menu in alto: visibile solo su schermi grandi (PC, LIM) {%- endcomment -%}
+    <nav class="menu-alto" aria-label="Menu principale">
+      {% include voci-menu.html classe="menu-alto__voce" %}
+    </nav>
+  </div>
+</header>

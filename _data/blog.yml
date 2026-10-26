@@ -1,0 +1,19 @@
+# ─────────────────────────────────────────────────────────────
+#  CATEGORIE del blog.
+#  "id" è il nome della cartella in blog/ (es. blog/divulgazione/)
+#  Per una nuova categoria: crea la cartella blog/<id>/_posts/
+#  e aggiungi qui sotto tre righe con id, nome e colore.
+#  Colori disponibili: verde, blu, arancio, viola, rosso, giallo
+# ─────────────────────────────────────────────────────────────
+
+- id: divulgazione
+  nome: "Divulgazione"
+  colore: viola
+
+- id: lettere
+  nome: "Lettere"
+  colore: rosso
+
+- id: articoli
+  nome: "Articoli"
+  colore: blu

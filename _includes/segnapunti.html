@@ -1,0 +1,26 @@
+{%- comment -%}
+  SEGNAPUNTI riutilizzabile. Si inserisce in qualsiasi pagina con:
+    {% include segnapunti.html %}
+  I punti restano solo in questo browser (es. sulla LIM): nessun dato inviato.
+  Un gioco può dare punti da JavaScript con:  Segnapunti.aggiungi(numeroSquadra, punti)
+{%- endcomment -%}
+<section class="segnapunti" data-segnapunti aria-label="Segnapunti">
+  <div class="segnapunti__barra">
+    <div class="segnapunti__numero" role="group" aria-label="Numero di squadre">
+      <span class="segnapunti__etichetta">Squadre</span>
+      {%- for n in (2..6) %}
+      <button class="chip" type="button" data-numero="{{ n }}" aria-pressed="false">{{ n }}</button>
+      {%- endfor %}
+    </div>
+    <button class="bottone bottone--contorno" type="button" data-azzera>
+      {% include icona.html nome="azzera" %}Azzera
+    </button>
+  </div>
+
+  <div class="segnapunti__squadre" data-squadre aria-live="polite">
+    <p class="vuoto">Il segnapunti ha bisogno di JavaScript attivo nel browser.</p>
+  </div>
+
+  <p class="segnapunti__nota">Usa nomi di squadra, non nomi degli studenti. I punti restano solo su questo dispositivo.</p>
+</section>
+<script src="{{ '/assets/js/segnapunti.js' | relative_url }}" defer></script>

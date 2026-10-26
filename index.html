@@ -1,0 +1,81 @@
+---
+layout: default
+title: Argomenti
+nav: argomenti
+---
+{%- comment -%}
+  HOME — gli argomenti si aggiungono da soli: basta creare una cartella
+  in "argomenti/" con dentro un file index.md (vedi LEGGIMI.md).
+  Le aree (Aritmetica, Algebra...) sono elencate in _data/aree.yml.
+{%- endcomment -%}
+{%- assign argomenti = site.pages | where: "layout", "argomento" | sort: "ordine", "last" -%}
+
+<section class="eroe contenitore">
+  <div class="eroe__testo">
+    <h1 class="eroe__titolo">Un passo<br>alla volta.</h1>
+    <p class="eroe__sotto">Dispense, esercitazioni, problem solving e giochi per ogni argomento. Scegli da dove partire.</p>
+  </div>
+  {% include decorazione-eroe.html %}
+</section>
+
+<section id="argomenti" class="argomenti" aria-labelledby="titolo-argomenti" data-filtrabile>
+  <h2 id="titolo-argomenti" class="solo-lettori">Argomenti</h2>
+
+  <div class="filtri" data-filtri="area">
+    <div class="contenitore">
+      <div class="filtri__riga" role="group" aria-label="Filtra per area">
+        <a class="chip" href="#argomenti" data-valore="tutti" aria-pressed="true">Tutti</a>
+        {%- for area in site.data.aree %}
+        <a class="chip tema-{{ area.colore }}" href="#area-{{ area.id }}" data-valore="{{ area.id }}" aria-pressed="false"><span class="chip__punto" aria-hidden="true"></span>{{ area.nome }}</a>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="contenitore">
+    {%- for area in site.data.aree %}
+    {%- assign dell_area = argomenti | where: "area", area.id %}
+    <section id="area-{{ area.id }}" class="gruppo tema-{{ area.colore }}" data-gruppo="{{ area.id }}">
+      <header class="gruppo__testa">
+        <h3 class="gruppo__titolo"><span class="gruppo__barra" aria-hidden="true"></span>{{ area.nome }}</h3>
+        <p class="gruppo__desc">{{ area.descrizione }}</p>
+      </header>
+
+      {%- if dell_area.size > 0 %}
+      <div class="griglia-schede">
+        {%- for argomento in dell_area %}
+        {% include scheda-argomento.html argomento=argomento indice=forloop.index0 %}
+        {%- endfor %}
+      </div>
+      {%- else %}
+      <p class="vuoto">Ancora nessun argomento di {{ area.nome | downcase }}. Arriveranno presto!</p>
+      {%- endif %}
+    </section>
+    {%- endfor %}
+  </div>
+</section>
+
+{%- if site.posts.size > 0 %}
+<section class="contenitore sezione-blog" aria-labelledby="titolo-dal-blog">
+  <header class="sezione__testa">
+    <h2 id="titolo-dal-blog" class="sezione__titolo">Dal blog</h2>
+    <a class="link-tutti" href="{{ '/blog/' | relative_url }}">Vedi tutti {% include icona.html nome="freccia" %}</a>
+  </header>
+  <div class="griglia-post">
+    {%- for post in site.posts limit: 3 %}
+    {% include scheda-post.html post=post indice=forloop.index0 %}
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
+
+<section class="contenitore">
+  <a class="banda-classe" href="{{ '/in-classe/' | relative_url }}">
+    <span class="banda-classe__icona">{% include icona.html nome="in-classe" %}</span>
+    <span class="banda-classe__testo">
+      <span class="banda-classe__titolo">In classe</span>
+      <span class="banda-classe__sotto">Modalità LIM: caratteri giganti, GeoGebra e Kahoot a un tocco.</span>
+    </span>
+    <span class="bottone bottone--chiaro" aria-hidden="true">Apri</span>
+  </a>
+</section>

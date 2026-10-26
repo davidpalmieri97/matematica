@@ -1,0 +1,44 @@
+---
+layout: default
+title: Blog
+nav: blog
+descrizione: "Divulgazione, lettere e articoli sulla matematica."
+---
+{%- comment -%}
+  BLOG — gli articoli si aggiungono da soli: basta un file .md in
+  blog/<categoria>/_posts/  con il nome  AAAA-MM-GG-titolo.md  (vedi LEGGIMI.md).
+  Le categorie sono elencate in _data/blog.yml.
+{%- endcomment -%}
+
+<section class="contenitore testa-pagina">
+  <h1 class="titolo-pagina">Blog</h1>
+  <p class="testa-pagina__sotto">Curiosità, storie, lettere e idee sulla matematica.</p>
+</section>
+
+<section class="blog" data-filtrabile aria-label="Articoli">
+  <div class="filtri" data-filtri="categoria">
+    <div class="contenitore">
+      <div class="filtri__riga" role="group" aria-label="Filtra per categoria">
+        <a class="chip" href="#" data-valore="tutti" aria-pressed="true">Tutti</a>
+        {%- for cat in site.data.blog %}
+        {%- assign n_cat = site.posts | where_exp: "p", "p.categories contains cat.id" | size %}
+        {%- if n_cat > 0 %}
+        <a class="chip tema-{{ cat.colore }}" href="#categoria-{{ cat.id }}" data-valore="{{ cat.id }}" aria-pressed="false"><span class="chip__punto" aria-hidden="true"></span>{{ cat.nome }}</a>
+        {%- endif %}
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="contenitore">
+    {%- if site.posts.size > 0 %}
+    <div class="griglia-post griglia-post--blog">
+      {%- for post in site.posts %}
+      {% include scheda-post.html post=post indice=forloop.index0 %}
+      {%- endfor %}
+    </div>
+    {%- else %}
+    <p class="vuoto">Ancora nessun articolo. Il primo arriverà presto!</p>
+    {%- endif %}
+  </div>
+</section>

@@ -1,0 +1,10 @@
+{%- comment -%} Voci del menu, usate sia in alto (PC) sia nella barra in basso (telefono) {%- endcomment -%}
+<a class="{{ include.classe }}" href="{{ '/' | relative_url }}" {% if page.nav == "argomenti" %}aria-current="page"{% endif %}>
+  {% include icona.html nome="argomenti" %}<span>Argomenti</span>
+</a>
+<a class="{{ include.classe }}" href="{{ '/blog/' | relative_url }}" {% if page.nav == "blog" %}aria-current="page"{% endif %}>
+  {% include icona.html nome="blog" %}<span>Blog</span>
+</a>
+<a class="{{ include.classe }}" href="{{ '/in-classe/' | relative_url }}" {% if page.nav == "in-classe" %}aria-current="page"{% endif %}>
+  {% include icona.html nome="in-classe" %}<span>In classe</span>
+</a>

@@ -1,0 +1,93 @@
+# ─────────────────────────────────────────────────────────────
+#  IMPOSTAZIONI DEL SITO
+#  Puoi cambiare liberamente le righe in questa prima parte.
+#  Dopo una modifica GitHub ricostruisce il sito in circa 1 minuto.
+# ─────────────────────────────────────────────────────────────
+
+# Nome del sito (compare in alto e nella scheda del browser)
+title: "Matematica"
+
+# Frase breve sotto il nome
+sottotitolo: "Lezioni e materiali · IeFP"
+
+# Descrizione per i motori di ricerca
+description: "Dispense, esercizi e link utili per le lezioni di matematica."
+
+# Indirizzo della cartella su GitHub Pages.
+# Se il sito sarà su  https://nomeutente.github.io/matematica/
+# scrivi qui  "/matematica"  (con la barra davanti, senza barra finale).
+# Se il repository si chiama  nomeutente.github.io  lascia vuoto: ""
+baseurl: "/matematica"
+
+
+# ─────────────────────────────────────────────────────────────
+#  DA QUI IN GIÙ: impostazioni tecniche, di solito non serve toccarle
+# ─────────────────────────────────────────────────────────────
+
+lang: it
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax   # le formule $$...$$ vengono poi disegnate da KaTeX
+  hard_wrap: false
+
+# Plugin già attivi su GitHub Pages: nessuna installazione necessaria
+plugins:
+  - jekyll-optional-front-matter   # gli esercizi .md non hanno bisogno di intestazione
+  - jekyll-titles-from-headings    # il titolo dell'esercizio è la prima riga "# ..."
+  - jekyll-relative-links
+
+# Impostazioni automatiche per le pagine di materiale e per il blog
+defaults:
+  - scope:
+      path: "argomenti"
+    values:
+      nav: argomenti
+  - scope:
+      path: "blog"
+    values:
+      nav: blog
+  - scope:
+      path: "in-classe"
+    values:
+      nav: in-classe
+  - scope:
+      path: "in-classe/giochi"
+    values:
+      layout: gioco
+  - scope:
+      path: "argomenti/*/dispense"
+    values:
+      layout: materiale
+  - scope:
+      path: "argomenti/*/esercitazioni"
+    values:
+      layout: materiale
+  - scope:
+      path: "argomenti/*/problem-solving"
+    values:
+      layout: materiale
+  - scope:
+      path: "argomenti/*/giochi"
+    values:
+      layout: materiale
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: articolo
+      permalink: /:categories/:title/
+
+# File di progetto da NON pubblicare sul sito
+exclude:
+  - CLAUDE.md
+  - DESIGN.md
+  - LEGGIMI.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# Non copiare sul sito anche i file .md originali delle pagine
+optional_front_matter:
+  remove_originals: true

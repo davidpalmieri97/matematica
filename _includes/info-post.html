@@ -1,0 +1,33 @@
+{%- comment -%}
+  Ricava le informazioni di un articolo del blog.
+  Uso: {% include info-post.html post=post %}
+  Variabili create: titolo_post, estratto_post, categoria_post (id),
+                    nome_categoria, colore_categoria, data_post, minuti_lettura
+  Il titolo è la prima riga "# ..." dell'articolo (altrimenti il nome del file).
+{%- endcomment -%}
+{%- assign _p = include.post -%}
+{%- if _p.content contains "<h1" -%}
+  {%- assign titolo_post = _p.content | split: "</h1>" | first | split: "<h1" | last | prepend: "<h1" | strip_html | strip -%}
+  {%- assign _intestazione = _p.content | split: "</h1>" | first | append: "</h1>" -%}
+  {%- assign _corpo = _p.content | remove_first: _intestazione -%}
+{%- else -%}
+  {%- assign titolo_post = _p.title -%}
+  {%- assign _corpo = _p.content -%}
+{%- endif -%}
+{%- assign estratto_post = _corpo | strip_html | normalize_whitespace | truncatewords: 22, "…" -%}
+{%- assign _parole = _corpo | strip_html | number_of_words -%}
+{%- assign minuti_lettura = _parole | divided_by: 200 | plus: 1 -%}
+
+{%- assign categoria_post = _p.categories | last -%}
+{%- assign _cat = site.data.blog | where: "id", categoria_post | first -%}
+{%- if _cat -%}
+  {%- assign nome_categoria = _cat.nome -%}
+  {%- assign colore_categoria = _cat.colore -%}
+{%- else -%}
+  {%- include titolo-da-file.html nome=categoria_post -%}
+  {%- assign nome_categoria = titolo_file -%}
+  {%- assign colore_categoria = "blu" -%}
+{%- endif -%}
+
+{%- include data-it.html data=_p.date -%}
+{%- assign data_post = data_it -%}

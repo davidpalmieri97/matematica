@@ -1,0 +1,89 @@
+---
+layout: default
+title: In classe
+nav: in-classe
+descrizione: "Strumenti rapidi per la LIM: GeoGebra, Kahoot, segnapunti e giochi."
+---
+{%- comment -%}
+  SEZIONE "IN CLASSE" per la LIM.
+  Gli strumenti rapidi sono elencati in _data/in_classe.yml.
+  I giochi messi in in-classe/giochi/ compaiono da soli.
+{%- endcomment -%}
+
+<section class="contenitore lim-testa">
+  <div class="lim-testa__testo">
+    <h1 class="titolo-pagina">In classe</h1>
+    <p class="testa-pagina__sotto">Tutto a portata di dito sulla LIM.</p>
+  </div>
+  <div class="lim-comandi">
+    <button class="bottone bottone--contorno" type="button" data-testo-grande aria-pressed="false">
+      <span class="lim-comandi__aa" aria-hidden="true">Aa</span> Testo grande
+    </button>
+    <button class="bottone bottone--contorno" type="button" data-schermo-intero hidden>
+      {% include icona.html nome="schermo" %}<span data-etichetta>Schermo intero</span>
+    </button>
+  </div>
+</section>
+
+<section class="contenitore lim-blocco" aria-labelledby="titolo-strumenti">
+  <h2 id="titolo-strumenti" class="lim-blocco__titolo">Strumenti</h2>
+  <div class="lim-griglia">
+    {%- for s in site.data.in_classe %}
+    <a class="lim-tessera tema-{{ s.colore | default: 'blu' }}" href="{{ s.url }}" target="_blank" rel="noopener" style="--i: {{ forloop.index0 }}">
+      <span class="scheda__simbolo lim-tessera__simbolo" aria-hidden="true">{{ s.simbolo }}</span>
+      <span class="lim-tessera__testo">
+        <span class="lim-tessera__nome">{{ s.nome }}</span>
+        {%- if s.descrizione %}<span class="lim-tessera__desc">{{ s.descrizione }}</span>{% endif %}
+      </span>
+      <span class="lim-tessera__esterno" aria-label="si apre in una nuova scheda">{% include icona.html nome="esterno" %}</span>
+    </a>
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="contenitore lim-blocco" aria-labelledby="titolo-giochi">
+  <h2 id="titolo-giochi" class="lim-blocco__titolo">Giochi a punti</h2>
+  {%- include raccogli-materiali.html cartella="/in-classe/giochi/" %}
+  <div class="lim-griglia">
+    <a class="lim-tessera tema-giallo" href="{{ '/in-classe/segnapunti/' | relative_url }}">
+      <span class="scheda__simbolo lim-tessera__simbolo" aria-hidden="true">{% include icona.html nome="stella" %}</span>
+      <span class="lim-tessera__testo">
+        <span class="lim-tessera__nome">Segnapunti</span>
+        <span class="lim-tessera__desc">Da 2 a 6 squadre, punti a un tocco</span>
+      </span>
+      <span class="lim-tessera__esterno">{% include icona.html nome="freccia" %}</span>
+    </a>
+    {%- for voce in materiali %}
+    {%- assign campi = voce | split: "§" %}
+    <a class="lim-tessera tema-viola" href="{{ campi[1] | relative_url }}">
+      <span class="scheda__simbolo lim-tessera__simbolo" aria-hidden="true">{% include icona.html nome="gioco" %}</span>
+      <span class="lim-tessera__testo">
+        <span class="lim-tessera__nome">{{ campi[2] }}</span>
+        <span class="lim-tessera__desc">Gioco a punti</span>
+      </span>
+      <span class="lim-tessera__esterno">{% include icona.html nome="freccia" %}</span>
+    </a>
+    {%- endfor %}
+  </div>
+  {%- if n_materiali == 0 %}
+  <p class="vuoto vuoto--piccolo lim-nota">Qui compariranno i giochi a punti messi nella cartella <code>in-classe/giochi/</code>.</p>
+  {%- endif %}
+</section>
+
+<section class="contenitore lim-blocco" aria-labelledby="titolo-vai">
+  <h2 id="titolo-vai" class="lim-blocco__titolo">Vai a un argomento</h2>
+  {%- assign argomenti = site.pages | where: "layout", "argomento" | sort: "ordine", "last" %}
+  {%- for area in site.data.aree %}
+  {%- assign dell_area = argomenti | where: "area", area.id %}
+  {%- if dell_area.size > 0 %}
+  <div class="lim-area tema-{{ area.colore }}">
+    <h3 class="gruppo__titolo lim-area__titolo"><span class="gruppo__barra" aria-hidden="true"></span>{{ area.nome }}</h3>
+    <div class="lim-area__riga">
+      {%- for a in dell_area %}
+      <a class="lim-chip" href="{{ a.url | relative_url }}"><span class="lim-chip__simbolo" aria-hidden="true">{{ a.simbolo }}</span>{{ a.titolo }}</a>
+      {%- endfor %}
+    </div>
+  </div>
+  {%- endif %}
+  {%- endfor %}
+</section>

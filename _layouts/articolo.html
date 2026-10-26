@@ -1,0 +1,44 @@
+---
+layout: default
+---
+{%- comment -%}
+  ARTICOLO DEL BLOG. La categoria è il nome della cartella (es. blog/divulgazione/).
+  Il titolo è la prima riga "# ..." del file.
+{%- endcomment -%}
+{%- include info-post.html post=page -%}
+
+<div class="tema-{{ colore_categoria }}">
+  <div class="contenitore pagina-materiale">
+    <nav class="briciole" aria-label="Sei qui">
+      <a class="indietro" href="{{ '/blog/' | relative_url }}#categoria-{{ categoria_post }}">{% include icona.html nome="indietro" %}<span>Blog</span></a>
+      <span class="etichetta-colore">{{ nome_categoria }}</span>
+    </nav>
+
+    <p class="info-articolo">
+      <span>{{ data_post }}</span>
+      <span aria-hidden="true">·</span>
+      <span>{{ minuti_lettura }} min di lettura</span>
+    </p>
+
+    <article class="prosa prosa--articolo">
+      {%- unless content contains "<h1" %}<h1>{{ page.title }}</h1>{% endunless %}
+      {{ content }}
+    </article>
+
+    {%- assign stessi = site.posts | where_exp: "p", "p.categories contains categoria_post" %}
+    {%- if stessi.size > 1 %}
+    <section class="altri" aria-labelledby="titolo-altri">
+      <h2 id="titolo-altri" class="altri__titolo">Altri articoli: {{ nome_categoria }}</h2>
+      <div class="griglia-post">
+        {%- assign mostrati = 0 %}
+        {%- for post in stessi %}
+        {%- if post.url != page.url and mostrati < 2 %}
+        {% include scheda-post.html post=post %}
+        {%- assign mostrati = mostrati | plus: 1 %}
+        {%- endif %}
+        {%- endfor %}
+      </div>
+    </section>
+    {%- endif %}
+  </div>
+</div>

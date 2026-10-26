@@ -1,0 +1,25 @@
+# ─────────────────────────────────────────────────────────────
+#  SOTTOSEZIONI di ogni argomento.
+#  "cartella" è il nome della cartella dentro argomenti/<argomento>/
+#  In ogni cartella puoi mettere file PDF oppure pagine .md
+# ─────────────────────────────────────────────────────────────
+
+- cartella: dispense
+  nome: "Dispense"
+  icona: dispensa
+  colore: blu
+
+- cartella: esercitazioni
+  nome: "Esercitazioni"
+  icona: esercizi
+  colore: verde
+
+- cartella: problem-solving
+  nome: "Problem solving"
+  icona: lampadina
+  colore: arancio
+
+- cartella: giochi
+  nome: "Giochi"
+  icona: gioco
+  colore: viola
