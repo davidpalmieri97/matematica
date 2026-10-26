@@ -1142,6 +1142,48 @@ img, svg { display: block; max-width: 100%; }
 @keyframes salta-su  { 40% { transform: scale(1.25) translateY(-6px); } }
 @keyframes salta-giu { 40% { transform: scale(.85); } }
 
+
+/* ---------- Esempio GeoGebra "a richiesta" ---------- */
+.geogebra {
+  margin: 1.5em 0;
+  border: 2px solid var(--linea);
+  border-radius: var(--raggio-scheda);
+  box-shadow: 0 var(--spessore) 0 var(--linea);
+  background: #fff;
+  overflow: hidden;
+}
+.geogebra__copertina {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 24px 16px 20px;
+  background: var(--blu-tinta);
+  text-align: center;
+}
+.geogebra__disegno { width: 120px; height: auto; color: var(--color-spark-blue); }
+.geogebra__titolo { font-family: var(--font-titoli); font-weight: 900; font-size: 1.2rem; color: var(--testo-forte); }
+.geogebra__avvia {
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: var(--raggio);
+  background: var(--verde-titolo);
+  box-shadow: 0 var(--spessore) 0 var(--verde-ombra);
+  margin-bottom: var(--spessore);
+  color: #fff;
+  font-family: var(--font-testo);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform var(--veloce) ease, box-shadow var(--veloce) ease;
+}
+.geogebra__avvia:active { transform: translateY(var(--spessore)); box-shadow: 0 0 0 var(--verde-ombra); }
+.geogebra__nota { color: var(--testo-tenue); font-size: .8125rem; line-height: 1.4; }
+.geogebra__cornice { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; animation: sali 300ms var(--morbido); }
+@media (min-width: 900px) { .geogebra__cornice { aspect-ratio: 16 / 10; } }
+
 /* ==========================================================================
    ANIMAZIONI
    ========================================================================== */

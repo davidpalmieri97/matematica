@@ -28,7 +28,7 @@ blog/<categoria>/_posts/AAAA-MM-GG-titolo.md   ← articoli; categoria = nome de
 _modelli/            ← modelli da copiare (esercitazione, articolo); non vengono pubblicati
 ```
 
-- **Niente anni**: gli argomenti sono raggruppati per **area** (`_data/aree.yml`: aritmetica, algebra, geometria, dati-e-probabilita). La home li filtra con le chip. Il colore della scheda viene dall'area.
+- **Niente anni**: gli argomenti sono raggruppati per **area** (`_data/aree.yml`: aritmetica, algebra, geometria, statistica-e-probabilita). La home li filtra con le chip. Il colore della scheda viene dall'area.
 - La home trova gli argomenti da sola: sono le pagine con `layout: argomento`.
 - Le **categorie del blog** sono in `_data/blog.yml` (nome e colore). Una cartella che non è nell'elenco funziona lo stesso, con il colore blu.
 - I filtri a chip (aree, categorie) sono un solo componente JS generico: `data-filtri="prefisso"`, `data-valore`, `data-gruppo`, `data-filtrabile`.
@@ -36,6 +36,7 @@ _modelli/            ← modelli da copiare (esercitazione, articolo); non vengo
 - `_includes/raccogli-materiali.html` è l'unico punto che decide cosa conta come materiale.
 - Colori ammessi: `verde`, `blu`, `arancio`, `viola`, `rosso`, `giallo` (classi `.tema-*` nel CSS).
 - **Formule**: `$$...$$`. Kramdown le trasforma in `\(...\)` (in linea) o `\[...\]` (blocco), poi KaTeX le disegna. KaTeX si carica **solo nelle pagine che contengono formule**.
+- **GeoGebra**: `{% include geogebra.html id="..." titolo="..." %}`. L'iframe viene creato da `sito.js` **solo al clic** (niente richieste esterne all'apertura della pagina). Non incorporare mai iframe esterni che si caricano da soli.
 - **Soluzioni a scomparsa**: `<details markdown="1"><summary>Soluzione</summary> ... </details>`.
 - Gli articoli del blog con data futura compaiono solo da quel giorno (comportamento standard di Jekyll).
 - Se cambi questo flusso, aggiorna **anche LEGGIMI.md**: è la guida per chi gestisce il sito.
@@ -54,6 +55,13 @@ _modelli/            ← modelli da copiare (esercitazione, articolo); non vengo
   - Le **schede colorate in griglia** e la palette secondaria (arancio, viola, rosso, giallo) sono state chieste esplicitamente, anche se DESIGN.md le sconsiglia.
   - I bottoni hanno un "bordo 3D" a tinta piena (`box-shadow` senza sfocatura) che si abbassa al tocco. Mai ombre sfumate, gradienti o effetti vetro.
 - Angoli sempre arrotondati (12px per bottoni e chip, 16px per le schede) e bordi spessi 2px.
+
+## Due aspetti: "giocoso" e "quaderno"
+
+- `aspetto:` in `_config.yml` sceglie lo stile: `giocoso` (DESIGN.md, `assets/css/stile.css`) oppure `quaderno` (DESIGN-quaderno.md, `assets/css/quaderno.css`, include in `_includes/quaderno/`).
+- I contenuti e le cartelle sono gli stessi: cambia solo la presentazione. JS e attributi `data-*` sono condivisi.
+- Ogni componente nuovo va previsto **in entrambi gli aspetti**. I fogli di stile sono indipendenti: non mescolare le classi.
+- Anteprima locale del quaderno senza toccare il sito online: aggiungi una config extra con `aspetto: quaderno` (`--config _config.yml,altro.yml`).
 
 ## Interattività e animazioni
 

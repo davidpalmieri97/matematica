@@ -49,6 +49,9 @@ Puoi usare quello che preferisci, anche entrambi.
 4. Torna in GitHub Desktop: in basso a sinistra scrivi una breve descrizione (es. *"Aggiunta dispensa sconti"*) e premi **Commit to main**.
 5. Premi **Push origin** in alto. Fatto: tra un minuto il sito è aggiornato.
 
+### Modo C — Chiedere a Claude
+Puoi chiedere a Claude (in Claude Code, aprendo questa cartella) di aggiungere o modificare materiale: lui cambia i file nella cartella del sito. Poi tu apri GitHub Desktop, scrivi una breve descrizione, premi **Commit to main** e **Push origin**: il caricamento finale lo fai sempre tu.
+
 ### Modo B — Dal browser (comodo a scuola, da qualsiasi PC)
 1. Vai su [github.com](https://github.com), apri il repository del sito ed entra nella cartella giusta (es. `argomenti` → `percentuali` → `dispense`).
 2. Premi **Add file → Upload files** e trascina il file nella pagina.
@@ -127,6 +130,17 @@ Il blocco `<details>` crea il bottone **"Soluzione"**: gli studenti la vedono so
 | `> testo` | riquadro evidenziato (citazione) |
 | `[GeoGebra](https://www.geogebra.org)` | un link |
 | una riga vuota | un nuovo paragrafo |
+
+### Inserire un esempio GeoGebra
+
+1. Su [geogebra.org](https://www.geogebra.org) apri il materiale che vuoi mostrare (tuo o di altri). L'indirizzo è del tipo `geogebra.org/m/`**`abcd1234`**: quel codice finale è l'**id**.
+2. Nella pagina `.md` (esercitazione, problem solving, gioco o articolo del blog), dove vuoi l'esempio, scrivi:
+   ```
+   {% include geogebra.html id="abcd1234" titolo="Il grafico della parabola" %}
+   ```
+3. Carica la modifica su GitHub.
+
+Nella pagina comparirà un riquadro con il bottone **"Apri l'esempio interattivo"**: il grafico si carica da geogebra.org solo quando qualcuno lo preme. Così aprire la pagina resta veloce e non invia nessun dato a siti esterni. Il `titolo` è facoltativo.
 
 ---
 
@@ -215,7 +229,7 @@ Aprila sulla LIM all'inizio della lezione. Contiene:
 
 ```yaml
 titolo: "Teorema di Pitagora"
-area: geometria         # aritmetica, algebra, geometria, dati-e-probabilita
+area: geometria         # aritmetica, algebra, geometria, statistica-e-probabilita
 ordine: 2               # posizione nella lista della sua area (1 = primo)
 simbolo: "a²"           # 1-3 caratteri disegnati sulla scheda
 descrizione: "Triangoli rettangoli e misure."
@@ -252,6 +266,7 @@ link:
 | Categorie del blog | `_data/blog.yml` |
 | Nomi e colori delle sottosezioni | `_data/sezioni.yml` |
 | Strumenti rapidi di "In classe" | `_data/in_classe.yml` |
+| Aspetto del sito: `giocoso` oppure `quaderno` | `_config.yml`, riga `aspetto:` |
 
 Colori disponibili: `verde`, `blu`, `arancio`, `viola`, `rosso`, `giallo`.
 In `_config.yml` non toccare la parte sotto la riga *"DA QUI IN GIÙ"*.
@@ -284,7 +299,7 @@ Questi passaggi si fanno **una volta sola**. Il sito è gratuito e **non servono
   - le tre lineette `---` all'inizio o alla fine della scheda sono state cancellate.
 
   Correggi il file e caricalo di nuovo: il sito riparte da solo.
-- **Un argomento non compare in home**: controlla che `index.md` contenga la riga `layout: argomento` e che `area:` sia scritta esattamente come in `_data/aree.yml` (es. `dati-e-probabilita`, senza accento).
+- **Un argomento non compare in home**: controlla che `index.md` contenga la riga `layout: argomento` e che `area:` sia scritta esattamente come in `_data/aree.yml` (es. `statistica-e-probabilita`, senza accento).
 - **Un articolo non compare nel blog**: controlla che il nome del file inizi con la data (`2026-11-03-...`), che la data non sia nel futuro e che il file sia dentro una cartella `_posts`.
 
 ---

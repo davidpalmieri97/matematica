@@ -1,0 +1,107 @@
+{%- comment -%}
+  HOME nello stile "quaderno". Stessi contenuti della versione giocosa:
+  argomenti raggruppati per area (_data/aree.yml), ultimi articoli, banda In classe.
+{%- endcomment -%}
+{%- assign argomenti = site.pages | where: "layout", "argomento" | sort: "ordine", "last" -%}
+
+<section class="contenitore q-eroe">
+  <div class="q-eroe__testo">
+    <h1 class="q-eroe__titolo">La matematica, un <span class="q-evidenzia">passo</span> alla volta.</h1>
+    <p class="q-eroe__sotto">Dispense, esercitazioni, problem solving e giochi, ordinati per argomento. Per studiare da casa, ripassare dal telefono e lavorare insieme in classe.</p>
+    <div class="q-eroe__azioni">
+      <a class="q-bottone q-bottone--pieno" href="#argomenti">Sfoglia gli argomenti</a>
+      <a class="q-bottone q-bottone--tenue" href="{{ '/in-classe/' | relative_url }}">In classe</a>
+    </div>
+  </div>
+  {% include quaderno/foglio.html %}
+</section>
+
+<section id="argomenti" class="contenitore q-sezione" aria-labelledby="titolo-argomenti">
+  <header class="q-sezione__testa">
+    <h2 id="titolo-argomenti" class="q-sezione__titolo">Argomenti</h2>
+    <p class="q-sezione__sotto">Quattro aree, ognuna con i suoi argomenti.</p>
+  </header>
+
+  <nav class="q-indice" aria-label="Vai a un'area">
+    {%- for area in site.data.aree %}
+    {%- assign n_area = argomenti | where: "area", area.id | size %}
+    <a class="q-indice__voce tema-{{ area.colore }}" href="#area-{{ area.id }}"><span class="q-punto" aria-hidden="true"></span>{{ area.nome }}<span class="q-indice__conta">{{ n_area }}</span></a>
+    {%- endfor %}
+  </nav>
+
+  <div class="q-aree">
+    {%- for area in site.data.aree %}
+    {%- assign dell_area = argomenti | where: "area", area.id %}
+    <section id="area-{{ area.id }}" class="q-area tema-{{ area.colore }}" aria-labelledby="titolo-area-{{ area.id }}">
+      <header class="q-area__testa">
+        <h3 id="titolo-area-{{ area.id }}" class="q-area__titolo"><span class="q-area__segno" aria-hidden="true"></span>{{ area.nome }}</h3>
+        <p class="q-area__desc">{{ area.descrizione }}</p>
+      </header>
+
+      {%- if dell_area.size > 0 %}
+      <div class="q-schede">
+        {%- for a in dell_area %}
+        {%- assign totale = 0 %}
+        {%- for sezione in site.data.sezioni %}
+          {%- assign cartella = a.dir | append: sezione.cartella | append: "/" %}
+          {%- include raccogli-materiali.html cartella=cartella %}
+          {%- assign totale = totale | plus: n_materiali %}
+        {%- endfor %}
+        <a class="q-scheda" href="{{ a.url | relative_url }}" style="--i: {{ forloop.index0 }}">
+          <span class="q-scheda__simbolo" aria-hidden="true" style="view-transition-name: simbolo-{{ a.dir | slugify }}">{{ a.simbolo | default: "∑" }}</span>
+          <span class="q-scheda__titolo">{{ a.titolo | default: a.title }}</span>
+          {%- if a.descrizione %}<span class="q-scheda__desc">{{ a.descrizione }}</span>{% endif %}
+          <span class="q-scheda__piede">
+            <span>{% if totale == 0 %}In arrivo{% elsif totale == 1 %}1 materiale{% else %}{{ totale }} materiali{% endif %}</span>
+            <span class="q-scheda__freccia">{% include icona.html nome="freccia" %}</span>
+          </span>
+        </a>
+        {%- endfor %}
+      </div>
+      {%- else %}
+      <p class="q-vuoto">Nessun argomento, per ora.</p>
+      {%- endif %}
+    </section>
+    {%- endfor %}
+  </div>
+</section>
+
+{%- if site.posts.size > 0 %}
+<section class="contenitore q-sezione" aria-labelledby="titolo-dal-blog">
+  <header class="q-sezione__testa q-sezione__testa--riga">
+    <div>
+      <h2 id="titolo-dal-blog" class="q-sezione__titolo">Dal blog</h2>
+      <p class="q-sezione__sotto">Curiosità, storie e lettere sulla matematica.</p>
+    </div>
+    <a class="q-bottone q-bottone--bordo" href="{{ '/blog/' | relative_url }}">Tutti gli articoli</a>
+  </header>
+  <div class="q-griglia-post">
+    {%- for post in site.posts limit: 3 %}
+    {%- include info-post.html post=post %}
+    <a class="q-post tema-{{ colore_categoria }}" href="{{ post.url | relative_url }}" style="--i: {{ forloop.index0 }}">
+      <span class="q-post__testa"><span class="q-tag">{{ nome_categoria }}</span><span class="q-post__data">{{ data_post }}</span></span>
+      <span class="q-post__titolo">{{ titolo_post }}</span>
+      {%- if estratto_post != "" %}<span class="q-post__estratto">{{ estratto_post }}</span>{% endif %}
+      <span class="q-post__piede">{{ minuti_lettura }} min di lettura</span>
+    </a>
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
+
+<section class="contenitore q-sezione">
+  <div class="q-scuro">
+    <div class="q-scuro__testo">
+      <p class="q-pillola q-pillola--scura">Per la LIM</p>
+      <h2 class="q-scuro__titolo">In classe</h2>
+      <p class="q-scuro__sotto">Caratteri grandi, GeoGebra e Kahoot a un tocco, un segnapunti per le sfide a squadre.</p>
+      <a class="q-bottone q-bottone--pieno" href="{{ '/in-classe/' | relative_url }}">Apri In classe</a>
+    </div>
+    <ul class="q-scuro__elenco" role="list" aria-label="Cosa trovi">
+      {%- for s in site.data.in_classe limit: 4 %}
+      <li class="tema-{{ s.colore }}"><span class="q-punto" aria-hidden="true"></span>{{ s.nome }}</li>
+      {%- endfor %}
+      <li class="tema-giallo"><span class="q-punto" aria-hidden="true"></span>Segnapunti a squadre</li>
+    </ul>
+  </div>
+</section>

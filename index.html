@@ -8,6 +8,9 @@ nav: argomenti
   in "argomenti/" con dentro un file index.md (vedi LEGGIMI.md).
   Le aree (Aritmetica, Algebra...) sono elencate in _data/aree.yml.
 {%- endcomment -%}
+{%- if site.aspetto == "quaderno" -%}
+{% include quaderno/home.html %}
+{%- else -%}
 {%- assign argomenti = site.pages | where: "layout", "argomento" | sort: "ordine", "last" -%}
 
 <section class="eroe contenitore">
@@ -79,3 +82,4 @@ nav: argomenti
     <span class="bottone bottone--chiaro" aria-hidden="true">Apri</span>
   </a>
 </section>
+{%- endif %}

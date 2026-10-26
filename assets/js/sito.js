@@ -23,6 +23,45 @@
     });
   }
 
+  /* ---------- Stile "quaderno": schizzi che si disegnano a turno nella home ---------- */
+  var foglio = document.querySelector("[data-foglio]");
+  if (foglio && !movimentoRidotto) {
+    var schizzi = foglio.querySelectorAll(".schizzo");
+    var didascalia = foglio.querySelector("[data-didascalia]");
+    var testoDidascalia = foglio.querySelector("[data-didascalia-testo]");
+    var corrente = 0;
+    // Ogni schizzo resta per il tempo indicato in data-durata (in millisecondi), di solito 5 secondi
+    function durata(schizzo) { return Number(schizzo.getAttribute("data-durata")) || 5000; }
+    function prossimo() {
+      if (!document.hidden) {
+        schizzi[corrente].classList.remove("attivo");
+        corrente = (corrente + 1) % schizzi.length;
+        var nuovo = schizzi[corrente];
+        nuovo.classList.add("attivo");
+        didascalia.className = "q-foglio__didascalia tema-" + nuovo.getAttribute("data-colore");
+        testoDidascalia.textContent = nuovo.getAttribute("data-nome");
+      }
+      setTimeout(prossimo, durata(schizzi[corrente]));
+    }
+    setTimeout(prossimo, durata(schizzi[0]));
+  }
+
+  /* ---------- Esempi GeoGebra: si caricano solo quando si preme il bottone ---------- */
+  document.querySelectorAll("[data-geogebra]").forEach(function (blocco) {
+    var id = blocco.getAttribute("data-geogebra");
+    var bottone = blocco.querySelector("[data-geogebra-avvia]");
+    if (!bottone || !/^[A-Za-z0-9]+$/.test(id)) return;
+    bottone.addEventListener("click", function () {
+      var cornice = document.createElement("iframe");
+      cornice.src = "https://www.geogebra.org/material/iframe/id/" + id + "/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false";
+      cornice.title = blocco.getAttribute("data-titolo") || "Esempio GeoGebra";
+      cornice.setAttribute("allowfullscreen", "");
+      cornice.className = "geogebra__cornice";
+      blocco.classList.add("geogebra--attivo");
+      blocco.querySelector(".geogebra__copertina").replaceWith(cornice);
+    });
+  });
+
   /* ---------- "In classe": Testo grande (vale per tutto il sito, su questo dispositivo) ---------- */
   var radice = document.documentElement;
   document.querySelectorAll("[data-testo-grande]").forEach(function (bottone) {

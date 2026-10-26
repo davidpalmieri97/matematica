@@ -7,7 +7,7 @@
 {%- endif %}
 <title>{% if titolo_pagina and page.url != "/" %}{{ titolo_pagina }} · {% endif %}{{ site.title }}</title>
 <meta name="description" content="{{ page.descrizione | default: site.description }}">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="{% if site.aspetto == "quaderno" %}#f6f5f4{% else %}#ffffff{% endif %}">
 <meta name="color-scheme" content="light">
 <script>
   // Prima che la pagina appaia: segna che JS è attivo e applica "Testo grande" se scelto in "In classe"
@@ -17,9 +17,14 @@
 <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
 
 {%- comment -%} Font ospitati nel sito: nessuna richiesta a servizi esterni {%- endcomment -%}
+{%- if site.aspetto == "quaderno" %}
+<link rel="preload" href="{{ '/assets/fonts/inter.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ '/assets/css/quaderno.css' | relative_url }}">
+{%- else %}
 <link rel="preload" href="{{ '/assets/fonts/nunito.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ '/assets/fonts/nunito-sans.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ '/assets/css/stile.css' | relative_url }}">
+{%- endif %}
 
 {%- if page.formule or content contains '\(' or content contains '\[' %}
 {%- comment -%} KaTeX viene caricato solo nelle pagine che contengono formule {%- endcomment -%}

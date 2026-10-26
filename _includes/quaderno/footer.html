@@ -1,0 +1,31 @@
+{%- comment -%} Piè di pagina dello stile "quaderno" {%- endcomment -%}
+<footer class="q-piede">
+  <div class="contenitore q-piede__dentro">
+    <div class="q-piede__marchio">
+      <a class="q-marchio" href="{{ '/' | relative_url }}">
+        <span class="q-marchio__segno" aria-hidden="true">
+          {%- for area in site.data.aree limit: 4 %}<span class="tema-{{ area.colore }}"></span>{% endfor -%}
+        </span>
+        <span class="q-marchio__nome">{{ site.title }}</span>
+      </a>
+      <p class="q-piede__testo">{{ site.sottotitolo }}</p>
+    </div>
+
+    <nav class="q-piede__colonna" aria-label="Sezioni">
+      <p class="q-piede__titolo">Sezioni</p>
+      <a href="{{ '/' | relative_url }}">Argomenti</a>
+      <a href="{{ '/blog/' | relative_url }}">Blog</a>
+      <a href="{{ '/in-classe/' | relative_url }}">In classe</a>
+    </nav>
+
+    <nav class="q-piede__colonna" aria-label="Aree">
+      <p class="q-piede__titolo">Aree</p>
+      {%- for area in site.data.aree %}
+      <a href="{{ '/' | relative_url }}#area-{{ area.id }}">{{ area.nome }}</a>
+      {%- endfor %}
+    </nav>
+  </div>
+  <div class="contenitore">
+    <p class="q-piede__nota">Nessun login, nessun dato personale raccolto, nessun cookie. Materiali a uso didattico · {{ site.time | date: "%Y" }}</p>
+  </div>
+</footer>

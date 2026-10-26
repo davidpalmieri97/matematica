@@ -20,7 +20,7 @@
   colore: viola
   descrizione: "Figure, misure e spazio."
 
-- id: dati-e-probabilita
-  nome: "Dati e probabilità"
+- id: statistica-e-probabilita
+  nome: "Statistica e probabilità"
   colore: verde
-  descrizione: "Statistica, grafici e previsioni."
+  descrizione: "Dati, grafici e probabilità."

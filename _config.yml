@@ -13,6 +13,11 @@ sottotitolo: "Lezioni e materiali · IeFP"
 # Descrizione per i motori di ricerca
 description: "Dispense, esercizi e link utili per le lezioni di matematica."
 
+# Aspetto del sito:
+#   giocoso   → colori vivaci, bottoni "3D" (vedi DESIGN.md)
+#   quaderno  → stile sobrio da quaderno, più professionale (vedi DESIGN-quaderno.md)
+aspetto: quaderno
+
 # Indirizzo della cartella su GitHub Pages.
 # Se il sito sarà su  https://nomeutente.github.io/matematica/
 # scrivi qui  "/matematica"  (con la barra davanti, senza barra finale).
@@ -82,6 +87,7 @@ defaults:
 exclude:
   - CLAUDE.md
   - DESIGN.md
+  - DESIGN-quaderno.md
   - LEGGIMI.md
   - README.md
   - Gemfile

@@ -1,0 +1,21 @@
+{%- comment -%}
+  ESEMPIO GEOGEBRA "A RICHIESTA". Si inserisce in una pagina con:
+    {% include geogebra.html id="abcd1234" titolo="Il grafico della parabola" %}
+  "id" è il codice nell'indirizzo del materiale: geogebra.org/m/abcd1234
+  Il grafico si carica da geogebra.org SOLO quando qualcuno preme il bottone:
+  aprendo la pagina non parte nessuna richiesta a siti esterni.
+{%- endcomment -%}
+{%- assign gg_titolo = include.titolo | default: "Esempio interattivo GeoGebra" -%}
+<figure class="geogebra" data-geogebra="{{ include.id }}" data-titolo="{{ gg_titolo | escape }}">
+  <div class="geogebra__copertina">
+    <svg class="geogebra__disegno" viewBox="0 0 120 80" aria-hidden="true" focusable="false">
+      <path d="M10 66H110M20 74V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity=".35"/>
+      <path d="M26 14C38 70 66 70 78 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <circle cx="52" cy="56" r="5" fill="currentColor"/>
+      <circle cx="92" cy="30" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <figcaption class="geogebra__titolo">{{ gg_titolo }}</figcaption>
+    <button class="geogebra__avvia" type="button" data-geogebra-avvia>Apri l'esempio interattivo</button>
+    <p class="geogebra__nota">Si carica da geogebra.org solo quando premi il bottone. <a href="https://www.geogebra.org/m/{{ include.id }}" target="_blank" rel="noopener">Apri su GeoGebra</a></p>
+  </div>
+</figure>
